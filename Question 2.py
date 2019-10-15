@@ -1,47 +1,74 @@
 import xlrd
-import xlsxwriter
 import Read
 import matplotlib.pyplot as plt
 import numpy as np
 
-file_path = "C:/Users/Oliver Marie/OneDrive/Documents/STAT 400/"
-write_book = xlsxwriter.Workbook(file_path + "Question 2.xlsx")
-write = write_book.add_worksheet()
-
 data_set = Read.Reader().get_data()
 
-bound = [100,125,150,175,200,225,250]
-histogram = []
-
-bound_count = [] #used to keep track of how many patients are within a bound
-
-#initilises bound_count based on array size of bound
-for index in bound:
-    bound_count.append(0)
-
+bound = [100,120,140,160,180,200,220,240,260]
+data_chd = [] #Stores the sbp of patients with CHD
+data_healthy = [] #Stores the sbp of the patients without CHD
 
 for item in data_set:
     if data_set[item]['chdfate'] == 1.0:
-        bound_index = 0
-        for i in bound:
-            if data_set[item]['sbp'] < i:
-                print ("%d \t %d" %(i,data_set[item]['sbp']))
-                bound_count[bound_index] += 1
-                break
-            bound_index += 1
-        histogram.append(data_set[item]['sbp'])
+        data_chd.append(data_set[item]['sbp'])
+    else:
+        data_healthy.append(data_set[item]['sbp'])
 
-print ("\n\n")
+count_chd = len(data_chd)
+count_healthy = len(data_healthy)
+total_Sample_size = len(data_set)
 
-for i in bound_count:
-    print (i)
+rel_freq = []
 
-write_book.close()
+for i in bound:
+    rel_freq.append(0)
 
-plt.hist(histogram, bins = 'auto', histtype = 'bar', rwidth = .8)
+index = 0
+for i in data_healthy:
+    index = 0
+    for x in bound:
+        if i < x:
+            rel_freq[index] += 1
+            break
+        index += 1
 
-plt.title('Distribution of Systemic Blood Pressure of the sample population')
+index = 0
+for i in bound:
+    rel_freq[index] = rel_freq[index]/count_healthy
+    index += 1
+
+plt.bar(bound, rel_freq, align = 'edge', alpha = 0.8,width = 10)
+plt.title('Distribution of Systemic Blood Pressure (SBP)\n of the sample population NOT diagnosed with CHD')
 plt.show()
 
-plt.boxplot(histogram)
+for i in rel_freq:
+    i = 0
+
+index = 0
+for i in data_chd:
+    index = 0
+    for x in bound:
+        if i < x:
+            rel_freq[index] += 1
+            break
+        index += 1
+
+index = 0
+for i in bound:
+    rel_freq[index] = rel_freq[index]/count_chd
+    index += 1
+
+
+
+plt.bar(bound, rel_freq, align = 'edge', alpha = 0.8,width = 10)
+plt.title('Distribution of Systemic Blood Pressure (SBP)\n of the sample population diagnosed with CHD')
+plt.show()
+
+plt.boxplot(data_chd)
+plt.title("Box And Whiskers Plot of SPB\n of the sample population diagnosed with CHD ")
+plt.show()
+
+plt.boxplot(data_healthy)
+plt.title("Box And Whiskers Plot of SPB\n of the sample population NOT diagnosed with CHD ")
 plt.show()

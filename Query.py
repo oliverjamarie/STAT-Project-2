@@ -80,4 +80,8 @@ def generate_hist_age ():
     plt.title ('Age Distribution of sample population')
     plt.show()
 
-generate_hist_age()
+def testSCL ():
+    for i in data_set:
+        print(i)
+
+testSCL()

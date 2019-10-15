@@ -44,3 +44,8 @@ class Reader:
                 'bmi': row[bmi_Col],
                 'month': row[month_Col],
             }
+
+            if isinstance(self.data[id]['scl'],float):
+                x = 0
+            else :
+                self.data[id]['scl'] = 0.0

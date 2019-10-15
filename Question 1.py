@@ -49,18 +49,19 @@ total_num_chd = countM_chd + countF_chd * 1.0
 propM_chd = countM_chd / total_num_chd #proportion of men with CHD
 propF_chd = countF_chd / total_num_chd #proportion of women with CHD
 
+group = ['Male', 'Female']
+
 #Histogram for whole sample population
 rel_freq = [0,0] #Relative Frequency
 rel_freq[0] = propM_sample
 rel_freq[1] = propF_sample
-
-group = ['Male', 'Female']
 
 plt.bar(group, rel_freq, align = 'center', alpha = 0.5)
 
 plt.title ('Gender distribution of sample population')
 plt.show()
 
+#Histogram for population diagnosed with CHD
 rel_freq[0] = propM_chd
 rel_freq[1] = propF_chd
 
