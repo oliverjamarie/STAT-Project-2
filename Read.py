@@ -4,12 +4,7 @@ class Reader:
     def __init__(self):
         self.data = {}
         file_name = "C:/Users/Oliver Marie/OneDrive/Documents/STAT 400/Project 1 Data.xlsx"
-        try :
-            book = xlrd.open_workbook(file_name)
-        except :
-            file_name = "C:/Users/Oliver Marie/Documents/Projects/STAT-Project-1/Project 1 Data.xlsx"
-            book = xlrd.open_workbook(file_name)
-
+        book = xlrd.open_workbook(file_name)
         self.sheet = book.sheet_by_name("2.20.Framingham")
         self.num_rows = self.sheet.nrows
         self.num_cols = self.sheet.ncols
