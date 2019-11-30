@@ -3,7 +3,8 @@ import xlrd
 class Reader:
     def __init__(self):
         self.data = {}
-        file_name = "D:\Coding-Projects\STAT-Project-1/Project 1 Data.xlsx"
+        #Change this to address where your file is stored
+        file_name = "D:\Coding-Projects\STAT-Project-2\Project 2 Data.xlsx"
         try:
             book = xlrd.open_workbook(file_name)
         except :
